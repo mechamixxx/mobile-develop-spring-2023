@@ -7,24 +7,28 @@ import {
   Button,
   Style,
   TextInput,
+  Image,
 } from 'react-native';
+import styles from '../style.js';
 import axios from 'axios';
-import {set} from 'react-native-reanimated';
 
-function factirual(n) {
-  if (n < 0) {
-    console.error('Попробуйте с числом больше нуля');
-  } else if (n === 0) {
-    return 1;
-  } else {
-    return Math.sin(Math.sin(n)) * factirual(n - 1);
+import style from '../style.js';
+
+const sum = n => {
+  let s = 1;
+  for (let i = 0; i < 10000; i++) {
+    for (let j = 0; j < 1000; j++) {
+      s = Math.sin(s);
+    }
   }
-}
-
+  return -20;
+};
+const first_number = 1;
+const second_number = 2;
 const task3 = () => {
-  const [fact, setFact] = useState(0);
-  const [result, setResult] = useState(0);
-  const memoResult = useMemo(() => setResult(), [fact]);
+  const result2 = useMemo(() => sum(second_number), [second_number]);
+  const [first, setFirst] = useState(400);
+  const [second, setSecond] = useState(400);
   return (
     <SafeAreaView
       style={{
@@ -32,53 +36,54 @@ const task3 = () => {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
+        flex: 1,
       }}>
-      <TextInput
+      <View style={{position: 'absolute', marginRight: '50%', top: 150}}>
+        <Text style={[styles.defaultText, styles.headerText1]}>Task 3</Text>
+      </View>
+
+      <Image
         style={{
-          color: 'black',
-          fontSize: 30,
-          textAlign: 'center',
-          backgroundColor: '#555555',
+          position: 'absolute',
+          top: first,
+          left: 50,
+          width: 58,
+          height: 102,
         }}
-        multiline
-        textAlign="center"
-        editable
-        value={fact}
-        onChangeText={text => {
-          setFact(text);
-        }}
+        source={require('../assets/yellow_car.png')}
       />
-      <TouchableOpacity
+      <Image
         style={{
-          marginTop: 10,
-          borderRadius: 10,
-          height: 40,
-          width: 220,
-          backgroundColor: '#2C98F0',
+          position: 'absolute',
+          top: second,
+          right: 50,
+          width: 58,
+          height: 102,
         }}
-        onPress={() => {
-          setResult(factirual(fact));
-        }}>
-        <Text
-          style={{
-            color: 'black',
-            fontSize: 20,
-            fontWeight: '800',
-            textAlign: 'center',
-          }}>
-          Найти факториал
-        </Text>
-      </TouchableOpacity>
-      <Text
-        style={{
-          color: 'black',
-          fontSize: 20,
-          fontWeight: '800',
-          textAlign: 'center',
-        }}>
-        Ответ:
-        {result}
-      </Text>
+        source={require('../assets/red_car.png')}
+      />
+      <View style={{position: 'absolute', left: 35, top: 520}}>
+        <TouchableOpacity style={[styles.defaultButton, styles.borderButton]}>
+          <Text
+            onPress={() => {
+              setFirst(first + sum(first_number));
+            }}
+            style={styles.defaultText}>
+            Вперёд
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{position: 'absolute', right: 35, top: 520}}>
+        <TouchableOpacity style={[styles.defaultButton, styles.borderButton]}>
+          <Text
+            onPress={() => {
+              setSecond(second + result2);
+            }}
+            style={[styles.defaultText]}>
+            Вперёд
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

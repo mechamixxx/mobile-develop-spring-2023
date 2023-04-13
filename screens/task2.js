@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {
   SafeAreaView,
   Text,
@@ -6,15 +7,17 @@ import {
   View,
   Button,
   Style,
+  StyleSheet,
 } from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
+import styles from '../style.js';
+const colors = ['red', '#2C98F0'];
 
-const colors = ['red', 'green'];
 const task2 = () => {
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState('Напишите число');
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
-  const guess = 'QWERTY';
-
+  //const asd = useSelector(state => state.first.first);
+  const guess = useSelector(state => state.word.word);
   useEffect(() => {
     if (word == guess) {
       setBackgroundColorIndex((count = 1));
@@ -27,26 +30,34 @@ const task2 = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: colors[backgroundColorIndex],
+        marginTop: 150,
+        //backgroundColor: colors[backgroundColorIndex],
       }}>
-      <View style={{flex: 1, paddingBottom: 20, alignItems: 'center'}}>
-        <Text
-          style={{
-            color: 'black',
-            backgroundColor: colors[backgroundColorIndex],
-            fontSize: 30,
-            textAlign: 'center',
-          }}>
-          {guess}
-        </Text>
+      <Text style={[styles.defaultText, styles.headerText1]}>Task 2</Text>
+
+      <View
+        style={{
+          flex: 1,
+          paddingBottom: 20,
+          marginTop: 40,
+          alignItems: 'center',
+        }}>
+        <Text style={[styles.defaultText, styles.headerText2]}>{guess}</Text>
         <TextInput
           style={{
             color: 'black',
-            fontSize: 30,
+            marginTop: 20,
+            fontSize: 20,
+            width: 200,
             textAlign: 'center',
-            backgroundColor: '#555555',
+            fontFamily: 'Montserrat',
+            fontStyle: 'normal',
+            fontSize: 18,
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderRadius: 20,
+            borderColor: colors[backgroundColorIndex],
           }}
-          multiline
           textAlign="center"
           editable
           value={word}
