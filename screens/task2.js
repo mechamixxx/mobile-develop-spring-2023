@@ -12,7 +12,6 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import styles from '../style.js';
 const colors = ['red', '#2C98F0'];
-
 const task2 = () => {
   const [word, setWord] = useState('Напишите число');
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
